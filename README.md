@@ -1,19 +1,23 @@
 Recopilacion de mis codigos y proyectos durante mi etapa de aprendizaje para futura retroalimentacion y compartir el conocimiento, aca se veran algunos topicos como:
 
-c++
-condicionales if
-bucles for while
-funnciones
-algoritmo de ordenamiento
-clases, herenci encapsulamiento, polimorfismo
+# Recopilación de Códigos y Proyectos
 
-java
-complejidad temporal
-algoritmos de busqueda
-recursividad
-arboles
-grafos
+Este repositorio recopila mis códigos y proyectos que voy desarrollando durante mi etapa de aprendizaje, para futura retroalimentación y compartir el conocimiento. Los temas abordados incluyen:
 
-html-css y framework bootstrap 
-semantica 
-responsividad
+### C++
+- Condicionales (if)
+- Bucles (for, while)
+- Funciones
+- Algoritmos de ordenamiento
+- Clases, herencia, encapsulamiento, polimorfismo
+
+### Java
+- Complejidad temporal
+- Algoritmos de búsqueda
+- Recursividad
+- Árboles
+- Grafos
+
+### HTML, CSS y Bootstrap
+- Semántica
+- Responsividad
