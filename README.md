@@ -20,6 +20,3 @@
 ### HTML, CSS y Bootstrap
 - Semántica
 - Responsividad
-
->[!NOTE]
-> 
