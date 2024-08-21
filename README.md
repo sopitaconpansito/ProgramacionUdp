@@ -1,6 +1,7 @@
 ## Recopilación de Códigos y Proyectos
 
-Este repositorio recopila mis códigos y proyectos que voy desarrollando durante mi etapa de aprendizaje, para futura retroalimentación y compartir el conocimiento. Los temas abordados incluyen:
+> [!NOTE]
+> Este repositorio está diseñado como un recurso de aprendizaje, donde estare recopilando mis códigos y proyectos a medida que avanzo en mi formación como desarrollador. Los contenidos aquí presentados abarcan una variedad de temas y lenguajes de programación, con el objetivo de servir tanto como referencia futura para mí mismo como para compartir conocimiento con otros.
 
 ### C++
 - Condicionales (if)
@@ -19,3 +20,6 @@ Este repositorio recopila mis códigos y proyectos que voy desarrollando durante
 ### HTML, CSS y Bootstrap
 - Semántica
 - Responsividad
+
+>[!NOTE]
+> 
