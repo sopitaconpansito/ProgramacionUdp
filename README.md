@@ -1,6 +1,4 @@
-Recopilacion de mis codigos y proyectos durante mi etapa de aprendizaje para futura retroalimentacion y compartir el conocimiento, aca se veran algunos topicos como:
-
-# Recopilación de Códigos y Proyectos
+## Recopilación de Códigos y Proyectos
 
 Este repositorio recopila mis códigos y proyectos que voy desarrollando durante mi etapa de aprendizaje, para futura retroalimentación y compartir el conocimiento. Los temas abordados incluyen:
 
