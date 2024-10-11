@@ -22,4 +22,9 @@ app.get('/products', async (req, res) => {
   res.render('catalogo', { lista });
 });
 
+app.get('/cart', async (req, res) => {
+  const lista = await sql('SELECT * FROM products')
+  res.render('carrito', { lista });
+});
+
 app.listen(3000, () => console.log('tukii fuap'));
