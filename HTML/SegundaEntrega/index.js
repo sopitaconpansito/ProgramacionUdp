@@ -18,7 +18,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/products', async (req, res) => {
-  const lista = await sql('SELECT * FROM products')
+  const products = await sql('SELECT * FROM products')
   res.render('catalogo', { products });
 });
 
