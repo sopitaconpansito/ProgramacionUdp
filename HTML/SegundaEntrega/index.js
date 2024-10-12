@@ -26,8 +26,7 @@ app.get('/product', async (req, res) => {
 });
 
 app.get('/cart', async (req, res) => {
-  const lista = await sql('SELECT * FROM products')
-  res.render('carrito', { lista });
+  res.render('carrito');
 });
 
 app.get('/addproduct', (req, res) => {
