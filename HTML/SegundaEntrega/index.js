@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.render('home', { lista });
 });
 
-app.get('/products', async (req, res) => {
+app.get('/product', async (req, res) => {
   const products = await sql('SELECT * FROM products')
   res.render('catalogo', { products });
 });
@@ -30,7 +30,7 @@ app.get('/cart', async (req, res) => {
   res.render('carrito', { lista });
 });
 
-app.get('/addproducts', (req, res) => {
+app.get('/addproduct', (req, res) => {
   res.render('addProduct');
 });
 
@@ -39,10 +39,10 @@ app.post('/products', async (req, res) => {
   const name = req.body.name;
   const price = req.body.price;
 
-  const query = `INSERT INTO products (name, price) VALUES ('$1 $2')`;
-  await sql(query, [name,price]);
-
-  res.redirect('/products')
+  const query = 'INSERT INTO products (id, name, price) VALUES ($1, $2)';
+  await sql(query, [name, price]);
+ 
+  res.redirect('/product')
 });
 
 app.listen(3000, () => console.log('tukii fuap'));
