@@ -35,8 +35,11 @@ app.get('/addproduct', (req, res) => {
 
 
 app.post('/products', async (req, res) => {
+  const id = req.body.id
   const name = req.body.name;
   const price = req.body.price;
+  const image_path = req.body.image_path;
+  const description = req.body.description;
 
   const query = 'INSERT INTO products (id, stock, name, price, image_path, description) VALUES ($1, $2, $3, $4, $5)';
   await sql(query, [id, stock, name, price, image_path, description]);
