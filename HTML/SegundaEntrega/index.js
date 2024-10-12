@@ -27,4 +27,8 @@ app.get('/cart', async (req, res) => {
   res.render('carrito', { lista });
 });
 
+app.get('/addproduct', (req, res) => {
+  res.render('addProduct');
+});
+
 app.listen(3000, () => console.log('tukii fuap'));
