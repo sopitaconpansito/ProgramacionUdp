@@ -17,7 +17,7 @@ app.set('views', './views');
 app.use('/resources', express.static('resources'));
 
 app.get('/', (req, res) => {
-  res.render('home', { lista });
+  res.render('home');
 });
 
 app.get('/product', async (req, res) => {
