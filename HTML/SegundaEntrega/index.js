@@ -43,7 +43,7 @@ app.post('/products', async (req, res) => {
   const query = `INSERT INTO products (name, price) VALUES ('$1 $2')`;
   await sql(query, [name,price]);
 
-  res.redirect('/products')
+  res.redirect('/products');
 });
 
 app.listen(3000, () => console.log('tukii fuap'));
