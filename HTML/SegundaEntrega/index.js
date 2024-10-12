@@ -35,7 +35,8 @@ app.get('/addproduct', (req, res) => {
 
 
 app.post('/products', async (req, res) => {
-  const id = req.body.id
+  const id = req.body.id;
+  const stock = req.body.stock;
   const name = req.body.name;
   const price = req.body.price;
   const image_path = req.body.image_path;
