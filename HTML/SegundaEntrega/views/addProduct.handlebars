@@ -1,20 +1,53 @@
-<form action="/products" method="POST">
-    ID del producto
-    <input name = "id">
-    <br />
-    Stock
-    <input name = "stock">
-    <br />
-    Nombre del producto
-    <input name = "name">
-    <br />
-    Precio del producto
-    <input name = "price">
-    <br />
-    PATH de la Imagen
-    <input name = "image_path">
-    <br />
-    Descripcion 
-    <input name = "description">
-    <button type="submit">Crear Producto</button>
-</form>
+
+ <!-- Botón Nuevo Ítem -->
+    <button class="btn btn-primary btn-new-item" data-bs-toggle="modal" data-bs-target="#newItemModal">Nuevo
+        Ítem</button>
+
+
+
+
+<!-- Formulario para nuevo producto -->
+<div class="modal fade" id="newItemModal" tabindex="-1" aria-labelledby="newItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newItemModalLabel">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario que envía datos a /products -->
+                <form action="/products" method="POST">
+                    <div class="mb-3">
+                        <label for="newProductId" class="form-label">ID del Producto</label>
+                        <input type="number" class="form-control" id="newProductId" name="id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newProductName" class="form-label">Nombre del Producto</label>
+                        <input type="text" class="form-control" id="newProductName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newProductDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="newProductDescription" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newProductPrice" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="newProductPrice" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newProductStock" class="form-label">Stock</label>
+                        <input type="number" class="form-control" id="newProductStock" name="stock" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newProductImagePath" class="form-label">Ruta de la Imagen</label>
+                        <input type="text" class="form-control" id="newProductImagePath" name="image_path" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <!-- Botón de envío -->
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
