@@ -1,21 +1,30 @@
 import { neon } from '@neondatabase/serverless';
-import { engine } from 'express-handlebars';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 import express from 'express';
+import { engine } from 'express-handlebars';
+import bcrypt from 'bcryptjs';
 
+/*---------- DataBase Conection ----------*/
 const sql = neon('postgresql://neondb_owner:scR5o3JDNuzv@ep-cool-paper-a5dz9krs.us-east-2.aws.neon.tech/neondb?sslmode=require');
 
+
+/*---------- Instantiate Express ----------*/
 const app = express();
 
+/*---------- Communications Middleware ----------*/
+app.use(express.json()); // Forms
+app.use(express.urlencoded({ extended: false })); // URL parameters
+app.use(cookieParser()); // Read cookies
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
+/*---------- Engine Templates ----------*/
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
-
 app.use('/resources', express.static('resources'));
 
+
+/*---------- Set Endpoints ----------*/
 app.get('/', (req, res) => {
   res.render('home');
 });
@@ -48,4 +57,5 @@ app.post('/products', async (req, res) => {
   res.redirect('/product');
 });
 
+/*---------- Use Port ----------*/
 app.listen(3000, () => console.log('tukii fuap'));
