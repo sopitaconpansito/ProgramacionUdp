@@ -37,7 +37,15 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
-app.get('/signup', (req, res) => {
+app.get('/signup', async (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+
+
+  const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
+  await sql(query, [name, email, password]);
+ 
   res.render('signup');
 });
 
@@ -74,4 +82,4 @@ app.post('/products', async (req, res) => {
 });
 
 /*---------- Use Port ----------*/
-app.listen(3000, () => console.log('tukii fuap'));
+app.listen(3000, () => console.log('te lo meti'));
