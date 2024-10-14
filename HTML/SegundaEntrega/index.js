@@ -33,6 +33,18 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+app.get('/signup', (req, res) => {
+  res.render('signup');
+});
+
+app.get('/unauthorized', (req, res) => {
+  res.render('unauthorized');
+});
+
 app.get('/product', async (req, res) => {
   const products = await sql('SELECT * FROM products')
   res.render('catalogo', { products });
