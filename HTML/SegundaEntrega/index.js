@@ -37,7 +37,7 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
-app.get('/signup', async (req, res) => {
+app.post('/signup', async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
