@@ -37,6 +37,10 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
+app.get('/signupuser', (req, res) => {
+  res.render('signup');
+});
+
 
 app.post('/signup', async (req, res) => {
   const name = req.body.name;
@@ -47,7 +51,7 @@ app.post('/signup', async (req, res) => {
   const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
   await sql(query, [name, email, password]);
  
-  res.render('signup');
+  res.redirect('/product');
 });
 
 app.get('/unauthorized', (req, res) => {
