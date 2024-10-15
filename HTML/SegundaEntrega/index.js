@@ -51,7 +51,7 @@ app.post('/signup', async (req, res) => {
   const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
   await sql(query, [name, email, password]);
  
-  res.redirect('/product');
+  res.redirect('/signupuser');
 });
 
 app.get('/unauthorized', (req, res) => {
