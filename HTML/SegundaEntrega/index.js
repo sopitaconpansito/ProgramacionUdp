@@ -47,7 +47,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  const error = req.query.error;
+  res.render('login', { error });
 });
 
 app.get('/profile', authMiddleware,  async (req, res) => {
@@ -117,6 +118,33 @@ app.post('/signup', async (req, res) => {
   res.redirect('/profile')
   
 });
+
+app.post('/login', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const query ='SELECT id, password FROM users WHERE email = $1'
+  const results = await sql(query, [email]);
+
+  if(results.length === 0) {
+    res.redirect('/login?error=unauthorized')
+    return;
+  }
+
+  const id = results[0].id;
+  const hash = results[0].password;
+
+  if(bcrypt.compareSync(password, hash)) {
+    const TimeLogged30 = Math.floor(Date.now() / 1000) + 30 * 60;
+    const token = jwt.sign({ id , exp: TimeLogged30} , clave);
+  
+    res.cookie(AUTH_COOKIE_NAME, token, { maxAge: 60 * 30 * 1000});
+    res.redirect('/profile')
+    return;
+  }
+
+  res,redirect('/login?error=unauthorized');
+}); 
 
 /*---------- Use Port ----------*/
 app.listen(3000, () => console.log('te lo meti'));
