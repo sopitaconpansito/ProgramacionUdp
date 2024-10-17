@@ -46,12 +46,23 @@ app.post('/signup', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  try {
+    // Intentar insertar el nuevo usuario
+    const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
+    await sql(query, [name, email, password]);
 
-  const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
-  await sql(query, [name, email, password]);
- 
-  res.redirect('/signupuser');
+    res.redirect('/signupuser');
+  } catch (error) {
+    // Verificar si el error es de duplicidad de correo (error 23505 en Postgres)
+    if (error.code === '23505') {
+      res.status(400).send('El correo ya se encuentra registrado.');
+    } else {
+      console.error(error);
+      res.status(500).send('Estamos trabajando para usted :)');
+    }
+  }
 });
+
 
 app.get('/unauthorized', (req, res) => {
   res.render('unauthorized');
