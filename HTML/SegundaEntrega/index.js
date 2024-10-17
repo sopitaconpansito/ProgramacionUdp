@@ -5,6 +5,13 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import bcrypt from 'bcryptjs';
 
+
+/*--- ULTRA HYPER MEGA SECRET PASSWORD, PLEASE DONT HACK ME :) ---*/
+const clave = 'INSAAAID'
+
+/*---------- CookieName----------*/
+const AUTH_COOKIE_NAME = 'ñami'
+
 /*---------- DataBase Conection ----------*/
 const sql = neon('postgresql://neondb_owner:scR5o3JDNuzv@ep-cool-paper-a5dz9krs.us-east-2.aws.neon.tech/neondb?sslmode=require');
 
@@ -37,30 +44,8 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
-app.get('/signupuser', (req, res) => {
+app.get('/signup', (req, res) => {
   res.render('signup');
-});
-
-app.post('/signup', async (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
-
-  try {
-    // Intentar insertar el nuevo usuario
-    const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
-    await sql(query, [name, email, password]);
-
-    res.redirect('/signupuser');
-  } catch (error) {
-    // Verificar si el error es de duplicidad de correo (error 23505 en Postgres)
-    if (error.code === '23505') {
-      res.status(400).send('El correo ya se encuentra registrado.');
-    } else {
-      console.error(error);
-      res.status(500).send('Error del servidor');
-    }
-  }
 });
 
 app.get('/unauthorized', (req, res) => {
@@ -80,7 +65,7 @@ app.get('/addproduct', (req, res) => {
   res.render('addProduct');
 });
 
-
+/*---------- Set POST METHOD ----------*/
 app.post('/products', async (req, res) => {
   const id = req.body.id;
   const stock = req.body.stock;
@@ -93,6 +78,44 @@ app.post('/products', async (req, res) => {
   await sql(query, [id, stock, name, price, image_path, description]);
  
   res.redirect('/product');
+});
+
+app.post('/signup', async (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  /*-------- bcrypt algorithm --------*/
+  const hash = bcrypt.hashSync(password, 5);
+
+  /*-------- auto login --------*/
+  const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id';
+  const results = await sql (query, [name, email, hash]);
+
+  /*-------- return id --------*/
+  const id = results[0].id;
+
+  /*-------- JWT Token --------*/
+  const TimeLogged30 = Math.floor(Date.now() / 1000) + 30 * 60;
+  const token = jwt.sign({ id , exp: TimeLogged30} , clave);
+  
+
+
+  try {
+    // Intentar insertar el nuevo usuario
+    const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
+    await sql(query, [name, email, password]);
+
+    res.redirect('/signup');
+  } catch (error) {
+    // Verificar si el error es de duplicidad de correo (error 23505 en Postgres)
+    if (error.code === '23505') {
+      res.status(400).send('El correo ya se encuentra registrado.');
+    } else {
+      console.error(error);
+      res.status(500).send('Error del servidor');
+    }
+  }
 });
 
 /*---------- Use Port ----------*/
