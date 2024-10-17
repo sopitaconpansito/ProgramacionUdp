@@ -10,7 +10,7 @@ import bcrypt from 'bcryptjs';
 const clave = 'INSAAAID'
 
 /*---------- CookieName----------*/
-const AUTH_COOKIE_NAME = 'ñami'
+const AUTH_COOKIE_NAME = 'nami'
 
 /*---------- DataBase Conection ----------*/
 const sql = neon('postgresql://neondb_owner:scR5o3JDNuzv@ep-cool-paper-a5dz9krs.us-east-2.aws.neon.tech/neondb?sslmode=require');
@@ -23,6 +23,16 @@ const app = express();
 app.use(express.json()); // Forms
 app.use(express.urlencoded({ extended: false })); // URL parameters
 app.use(cookieParser()); // Read cookies
+
+const authMiddleware = (req, res, next) => {
+  const token = req.cookies[AUTH_COOKIE_NAME];
+  try {
+    req.user = jwt.verify(token, clave);
+    next();
+  } catch (e) {
+    res.render('unauthorizad');
+  }
+};
 
 /*---------- Engine Templates ----------*/
 app.engine('handlebars', engine());
@@ -40,7 +50,7 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.get('/profile', (req, res) => {
+app.get('/profile', authMiddleware, (req, res) => {
   res.render('profile');
 });
 
@@ -98,24 +108,10 @@ app.post('/signup', async (req, res) => {
   /*-------- JWT Token --------*/
   const TimeLogged30 = Math.floor(Date.now() / 1000) + 30 * 60;
   const token = jwt.sign({ id , exp: TimeLogged30} , clave);
+
+  res.cookie(AUTH_COOKIE_NAME, token, { maxAge: 60 * 30 * 1000});
+  res.redirect(302, '/profile')
   
-
-
-  try {
-    // Intentar insertar el nuevo usuario
-    const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)';
-    await sql(query, [name, email, password]);
-
-    res.redirect('/signup');
-  } catch (error) {
-    // Verificar si el error es de duplicidad de correo (error 23505 en Postgres)
-    if (error.code === '23505') {
-      res.status(400).send('El correo ya se encuentra registrado.');
-    } else {
-      console.error(error);
-      res.status(500).send('Error del servidor');
-    }
-  }
 });
 
 /*---------- Use Port ----------*/
