@@ -1,6 +1,6 @@
   <!-- Login -->
 
-  {{if error}}
+  {{#if error}}
   <div class="container mt-5">
           <div class="alert alert-danger">
               <h4 class="alert-heading">¡Advertencia!</h4>
@@ -10,6 +10,7 @@
           </div>
       </div>
   {{/if}}
+
   <form action="/login" method="POST">
     <main class="container mt-5">
       <article class="card">
