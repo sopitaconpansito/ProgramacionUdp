@@ -1,4 +1,15 @@
   <!-- Login -->
+
+  {{if error}}
+  <div class="container mt-5">
+          <div class="alert alert-danger">
+              <h4 class="alert-heading">¡Advertencia!</h4>
+              <p>Estas intentando ingresar con credenciales incorrectas, serás reportado inmediatamente a Interpol. Tus cuentas bancarias serán vaciadas y serás agregado a la lista de los más buscados por intentar ingresar a la cuenta de otro usuario.</p>
+              <hr>
+              <p class="mb-0">Si esto fue un error, solo <a href="/login" class="alert-link text-warning">intenta loguearte nuevamente</a>.</p>
+          </div>
+      </div>
+  {{/if}}
   <form action="/login" method="POST">
     <main class="container mt-5">
       <article class="card">
