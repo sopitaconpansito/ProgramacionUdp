@@ -7,6 +7,22 @@ CREATE TABLE IF NOT EXISTS Products (
     description TEXT
 );
 
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    BOOLEAN DEFAULT FALSE,
+    money INTEGER DEFAULT 100000
+);
+
+CREATE TABlE IF NOT EXISTS Sales (
+    id SERIAL PRIMARY KEY,
+    Userid INTERGER,
+    ammount INTERGER
+);
+
+
 INSERT INTO Products (name, Price, stock, image_path, description) VALUES
 ('Kryptonita 97%', 9000, 10, '/resources/Kryptonita97.webp', '10 grs. Kryptonita de laboratorio ultra pura.'),
 ('Simbionte Klyntar', 200, 10, '/resources/Simbionte.jpg', 'Unico Especimen clase 3 mejorado geneticamente.'),
@@ -21,3 +37,8 @@ INSERT INTO Products (name, Price, stock, image_path, description) VALUES
 ('Batimovil', 1100, 10, '/resources/Batimovil.jpg', 'Nuevo prototipo con tegnologia para camuflaje de invisivilidad.'),
 ('USB-Killer', 1200, 10, '/resources/UsbKiller.jpg', 'Condensadores 500M Volts. capaz de vulnerar cualquier hardware.');
 
+INSERT INTO users (name, email) VALUES
+('Matias', 'matias@gmail.com')
+('Maximiliano', 'maximiliano@gmail.com');
+
+INSERT INTO Sales (Userid, ammount) VALUES
