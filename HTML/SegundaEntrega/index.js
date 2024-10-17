@@ -50,8 +50,13 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.get('/profile', authMiddleware, (req, res) => {
-  res.render('profile');
+app.get('/profile', authMiddleware,  async (req, res) => {
+  const useerId = req.user.id
+  const query = 'SELECT name, email users WHERE id= $1';
+  const results = await sql(query, [useerId]);
+  const user = results[0];
+
+  res.render('profile', user);
 });
 
 app.get('/signup', (req, res) => {
