@@ -41,7 +41,6 @@ app.get('/signupuser', (req, res) => {
   res.render('signup');
 });
 
-
 app.post('/signup', async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
