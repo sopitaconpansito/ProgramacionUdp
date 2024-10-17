@@ -30,7 +30,7 @@ const authMiddleware = (req, res, next) => {
     req.user = jwt.verify(token, clave);
     next();
   } catch (e) {
-    res.render('unauthorizad');
+    res.render('unauthorized');
   }
 };
 
