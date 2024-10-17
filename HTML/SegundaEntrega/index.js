@@ -58,11 +58,10 @@ app.post('/signup', async (req, res) => {
       res.status(400).send('El correo ya se encuentra registrado.');
     } else {
       console.error(error);
-      res.status(500).send('Estamos trabajando para usted :)');
+      res.status(500).send('Error del servidor');
     }
   }
 });
-
 
 app.get('/unauthorized', (req, res) => {
   res.render('unauthorized');
