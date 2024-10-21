@@ -81,6 +81,10 @@ app.get('/addproduct', (req, res) => {
   res.render('addProduct');
 });
 
+app.get('/adminview', (req, res) => {
+  res.render('admin');
+});
+
 /*---------- Set POST METHOD ----------*/
 app.post('/products', async (req, res) => {
   const id = req.body.id;
