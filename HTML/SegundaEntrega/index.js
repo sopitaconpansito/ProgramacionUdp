@@ -96,27 +96,36 @@ app.post('/products', async (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const { name, email, password } = req.body;
 
-  /*-------- bcrypt algorithm --------*/
-  const hash = bcrypt.hashSync(password, 5);
+    // Validación de entradas
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+    }
 
-  /*-------- auto login --------*/
-  const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id';
-  const results = await sql (query, [name, email, hash]);
+    /*-------- bcrypt algorithm --------*/
+    const hash = bcrypt.hashSync(password, 5);
 
-  /*-------- return id --------*/
-  const id = results[0].id;
+    /*-------- auto login --------*/
+    const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id';
+    const results = await sql(query, [name, email, hash]);
 
-  /*-------- JWT Token --------*/
-  const TimeLogged30 = Math.floor(Date.now() / 1000) + 30 * 60;
-  const token = jwt.sign({ id , exp: TimeLogged30} , clave);
+    /*-------- return id --------*/
+    const id = results[0].id;
 
-  res.cookie(AUTH_COOKIE_NAME, token, { maxAge: 60 * 30 * 1000});
-  res.redirect('/profile')
-  
+    /*-------- JWT Token --------*/
+    const TimeLogged30 = Math.floor(Date.now() / 1000) + 30 * 60;
+    const token = jwt.sign({ id, exp: TimeLogged30 }, clave);
+
+    res.cookie(AUTH_COOKIE_NAME, token, { maxAge: 60 * 30 * 1000 });
+    res.redirect('/profile');
+  } catch (error) {
+    console.error('Error during signup:', error);
+    
+    // Redirigir a una página de error genérica
+    res.redirect('/unauthorized');
+  }
 });
 
 app.post('/login', async (req, res) => {
