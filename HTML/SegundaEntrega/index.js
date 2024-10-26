@@ -213,10 +213,10 @@ app.post(
 
     const name = req.body.name;
     const price = req.body.price;
-    const image = req.body.image;
+    const image = req.body.image_path;
 
     await sql(
-      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      'UPDATE products SET name = $1, price = $2, image_path = $3 WHERE id = $4',
       [name, price, image, id]
     );
 
