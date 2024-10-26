@@ -41,7 +41,7 @@ const authMiddleware = async (req, res, next) => {
 };
 
 const isAdminMiddleware = async (req, res, next) => {
-  if (!req.user.is_admin) {
+  if (!req.user.admin) {
     res.send('No eres admin');
     return;
   }
