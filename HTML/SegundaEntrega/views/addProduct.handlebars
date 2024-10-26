@@ -1,114 +1,86 @@
 <style>
     /* Estilo para los formularios */
-.form-label {
-    font-weight: bold;
-    color: #000;
-}
+    .form-label {
+        font-weight: bold;
+        color: #000;
+    }
 
-.form-control {
-    background-color: #F0F4ED;
-    border: 1px solid #9CA986;
-    color: #000;
-}
+    .form-control {
+        background-color: #F0F4ED;
+        border: 1px solid #9CA986;
+        color: #000;
+    }
 
-.form-control:focus {
-    background-color: #E8EFE3;
-    border-color: #5F6F65;
-    box-shadow: none;
-    color: #000;
-}
+    .form-control:focus {
+        background-color: #E8EFE3;
+        border-color: #5F6F65;
+        box-shadow: none;
+        color: #000;
+    }
 
-/* Estilo para los botones */
-.btn-primary,
-.btn-secondary {
-    background-color: #9CA986;
-    border-color: #9CA986;
-    color: #000;
-}
+    /* Estilo para los botones */
+    .btn-primary,
+    .btn-secondary {
+        background-color: #9CA986;
+        border-color: #9CA986;
+        color: #000;
+    }
 
-.btn-primary:hover,
-.btn-secondary:hover {
-    background-color: #5F6F65;
-    border-color: #5F6F65;
-    color: #fff;
-}
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        background-color: #5F6F65;
+        border-color: #5F6F65;
+        color: #fff;
+    }
 
-/* Estilo para el botón de "Nuevo Ítem" */
-.btn-new-item {
-    margin-top: 20px;
-    background-color: #9CA986;
-    border-color: #9CA986;
-    color: #000;
-}
+    /* Estilo para el botón de "Nuevo Ítem" */
+    .btn-new-item {
+        margin-top: 20px;
+        background-color: #9CA986;
+        border-color: #9CA986;
+        color: #000;
+    }
 
-.btn-new-item:hover {
-    background-color: #5F6F65;
-    border-color: #5F6F65;
-    color: #fff;
-}
-
-/* Estilo para los botones dentro del modal */
-.modal-footer .btn-secondary {
-    background-color: #9CA986;
-    border-color: #9CA986;
-    color: #000;
-}
-
-.modal-footer .btn-secondary:hover {
-    background-color: #5F6F65;
-    border-color: #5F6F65;
-    color: #fff;
-}
+    .btn-new-item:hover {
+        background-color: #5F6F65;
+        border-color: #5F6F65;
+        color: #fff;
+    }
 </style>
 
-
-
- <!-- Botón Nuevo Ítem -->
-    <button class="btn btn-primary btn-new-item" data-bs-toggle="modal" data-bs-target="#newItemModal">Nuevo
-        Ítem</button>
+<!-- Botón Nuevo Ítem -->
+<a href="#newItemForm" class="btn btn-primary btn-new-item">Nuevo Ítem</a>
 
 <!-- Formulario para nuevo producto -->
-<div class="modal fade" id="newItemModal" tabindex="-1" aria-labelledby="newItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newItemModalLabel">Nuevo Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario que envía datos a /products -->
-                <form action="/products" method="POST">
-                    <div class="mb-3">
-                        <label for="newProductId" class="form-label">ID del Producto</label>
-                        <input type="number" class="form-control" id="newProductId" name="id" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newProductName" class="form-label">Nombre del Producto</label>
-                        <input type="text" class="form-control" id="newProductName" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newProductDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="newProductDescription" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newProductPrice" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="newProductPrice" name="price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newProductStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="newProductStock" name="stock" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newProductImagePath" class="form-label">Ruta de la Imagen</label>
-                        <input type="text" class="form-control" id="newProductImagePath" name="image_path" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <!-- Botón de envío -->
-                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
-                    </div>
-                </form>
-            </div>
+<div id="newItemForm" style="margin-top: 20px;">
+    <h5>Nuevo Producto</h5>
+    <!-- Formulario que envía datos a /products -->
+    <form action="/products" method="POST">
+        <div class="mb-3">
+            <label for="newProductId" class="form-label">ID del Producto</label>
+            <input type="number" class="form-control" id="newProductId" name="id" required>
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="newProductName" class="form-label">Nombre del Producto</label>
+            <input type="text" class="form-control" id="newProductName" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="newProductDescription" class="form-label">Descripción</label>
+            <textarea class="form-control" id="newProductDescription" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="newProductPrice" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="newProductPrice" name="price" required>
+        </div>
+        <div class="mb-3">
+            <label for="newProductStock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="newProductStock" name="stock" required>
+        </div>
+        <div class="mb-3">
+            <label for="newProductImagePath" class="form-label">Ruta de la Imagen</label>
+            <input type="text" class="form-control" id="newProductImagePath" name="image_path" required>
+        </div>
+        <!-- Botón de envío -->
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+    </form>
 </div>
