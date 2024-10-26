@@ -24,14 +24,28 @@ app.use(express.json()); // Forms
 app.use(express.urlencoded({ extended: false })); // URL parameters
 app.use(cookieParser()); // Read cookies
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
+
   try {
-    req.user = jwt.verify(token, clave);
+    req.user = jwt.verify(token, CLAVE_SECRETA);
+    const results = await sql('SELECT * FROM users WHERE id = $1', [
+      req.user.id,
+    ]);
+    req.user = results[0];
+    req.user.salutation = `Hola ${req.user.name}`;
     next();
   } catch (e) {
     res.render('unauthorized');
   }
+};
+
+const isAdminMiddleware = async (req, res, next) => {
+  if (!req.user.is_admin) {
+    res.send('No eres admin');
+    return;
+  }
+  next();
 };
 
 /*---------- Engine Templates ----------*/
@@ -84,6 +98,27 @@ app.get('/addproduct', (req, res) => {
 app.get('/adminview', (req, res) => {
   res.render('admin');
 });
+
+app.get('/logout', (req, res) => {
+  res.cookie(AUTH_COOKIE_NAME, '', { maxAge: 1 });
+  res.send('sesion sesiada');
+});
+
+app.get('/admin', authMiddleware, isAdminMiddleware, async (req, res) => {
+  const money = await sql('SELECT SUM(amount) FROM sales');
+  const total = money[0].sum;
+  const products = await sql('SELECT * FROM products');
+
+  res.render('admin', { total, products });
+});
+
+app.get('/products/editar/:id',authMiddleware,isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+    const product = await sql('SELECT * FROM products WHERE id = $1', [id]);
+    res.render('editar', product[0]);
+  }
+);
 
 /*---------- Set POST METHOD ----------*/
 app.post('/products', async (req, res) => {
@@ -140,7 +175,7 @@ app.post('/login', async (req, res) => {
   const results = await sql(query, [email]);
 
   if(results.length === 0) {
-    res.redirect('/login?error=unauthorized')
+    res.redirect(302, '/login?error=unauthorized')
     return;
   }
 
@@ -152,12 +187,170 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ id , exp: TimeLogged30} , clave);
   
     res.cookie(AUTH_COOKIE_NAME, token, { maxAge: 60 * 30 * 1000});
-    res.redirect('/profile')
+    res.redirect(302, '/profile')
     return;
   }
 
   res,redirect('/login?error=unauthorized');
 }); 
+
+app.post(
+  '/products/delete/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+    await sql('DELETE FROM products WHERE id = $1', [id]);
+    res.redirect('/admin');
+  }
+);
+app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+);
+
+app.post(
+  '/products/editar/:id',
+  authMiddleware,
+  isAdminMiddleware,
+  async (req, res) => {
+    const id = req.params.id;
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+
+    await sql(
+      'UPDATE products SET name = $1, price = $2, image = $3 WHERE id = $4',
+      [name, price, image, id]
+    );
+
+    res.redirect('/admin');
+  }
+)
 
 /*---------- Use Port ----------*/
 app.listen(3000, () => console.log('te lo meti'));

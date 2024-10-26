@@ -1,1 +1,29 @@
 <p>ERES EL FOKIN ADMIN</p>
+<h1>Eres admin, has ganado {{total}}</h1>
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"></th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+      <tr>
+        <th scope="row">{{this.id}}</th>
+        <td><img src="{{this.image}}" class="rounded-circle" height="30px" width="30px" /></td>
+        <td>{{this.name}}</td>
+        <td>{{this.price}}</td>
+        <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
+  <form action="/products/delete/{{this.id}}" method="POST">
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+  </form>
+  <button type="button" class="btn btn-success"><a href="/products/editar/{{this.id}}">Editar</a></button>
+</div></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
