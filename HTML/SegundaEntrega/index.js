@@ -91,7 +91,7 @@ app.get('/cart', async (req, res) => {
   res.render('carrito');
 });
 
-app.get('/addproduct', (req, res) => {
+app.get('/addproduct', authMiddleware, isAdminMiddleware, async (req, res) => {
   res.render('addProduct');
 });
 
