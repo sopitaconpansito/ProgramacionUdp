@@ -1,14 +1,55 @@
+<style>
+    /* Estilo para los formularios */
+    .form-label {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .form-control {
+        background-color: #F0F4ED;
+        border: 1px solid #9CA986;
+        color: #000;
+    }
+
+    .form-control:focus {
+        background-color: #E8EFE3;
+        border-color: #5F6F65;
+        box-shadow: none;
+        color: #000;
+    }
+
+    /* Estilo para los botones */
+    .btn-primary,
+    .btn-secondary {
+        background-color: #9CA986;
+        border-color: #9CA986;
+        color: #000;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        background-color: #5F6F65;
+        border-color: #5F6F65;
+        color: #fff;
+    }
+</style>
+
+<h1>Editar Producto</h1>
 <form action="/products/editar/{{id}}" method="POST">
-  Nombre: 
-  <input name="name" value="{{name}}" />
-  <br />
-  Precio: 
-  <input name="price" value="{{price}}" />
-  <br />
-  Imagen
-  <input name="image" value="{{image}}"/>
-  <button type="submit">Editar</button>
+    <div class="mb-3">
+        <label for="editProductName" class="form-label">Nombre del Producto</label>
+        <input type="text" class="form-control" id="editProductName" name="name" value="{{name}}" required>
+    </div>
+    <div class="mb-3">
+        <label for="editProductPrice" class="form-label">Precio</label>
+        <input type="number" class="form-control" id="editProductPrice" name="price" value="{{price}}" required>
+    </div>
+    <div class="mb-3">
+        <label for="editProductImage" class="form-label">Ruta de la Imagen</label>
+        <input type="text" class="form-control" id="editProductImage" name="image" value="{{image}}" required>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Editar Producto</button>
+    </div>
 </form>
-
-
-
