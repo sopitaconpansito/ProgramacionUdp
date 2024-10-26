@@ -77,7 +77,7 @@
         <th scope="row">{{this.id}}</th>
         <td><img src="{{this.image}}" class="rounded-circle" height="30" width="30" /></td>
         <td>{{this.name}}</td>
-        <td>${{this.price.toFixed(2)}}</td>
+        <td>{{this.price}}</td>
         <td>
           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <form action="/products/delete/{{this.id}}" method="POST">
