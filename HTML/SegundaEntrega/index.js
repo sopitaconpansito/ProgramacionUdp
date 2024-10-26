@@ -213,11 +213,11 @@ app.post(
 
     const name = req.body.name;
     const price = req.body.price;
-    const image = req.body.image_path;
+    const image_path = req.body.image_path;
 
     await sql(
       'UPDATE products SET name = $1, price = $2, image_path = $3 WHERE id = $4',
-      [name, price, image, id]
+      [name, price, image_path, id]
     );
 
     res.redirect('/admin');
