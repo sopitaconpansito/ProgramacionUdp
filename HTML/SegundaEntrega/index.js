@@ -28,7 +28,7 @@ const authMiddleware = async (req, res, next) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
 
   try {
-    req.user = jwt.verify(token, CLAVE_SECRETA);
+    req.user = jwt.verify(token, clave);
     const results = await sql('SELECT * FROM users WHERE id = $1', [
       req.user.id,
     ]);
