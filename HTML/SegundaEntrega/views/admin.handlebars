@@ -1,29 +1,4 @@
 <style>
-  .navbar {
-    background-color: #9CA986;
-  }
-
-  .navbar-brand, .nav-link {
-    color: #000 !important;
-  }
-
-  .nav-link:hover {
-    background-color: #9CA986;
-    color: #fff !important;
-  }
-
-  .btn-primary, .btn-secondary {
-    background-color: #9CA986;
-    border-color: #9CA986;
-    color: #000;
-  }
-
-  .btn-primary:hover, .btn-secondary:hover {
-    background-color: #5F6F65;
-    border-color: #5F6F65;
-    color: #fff;
-  }
-
   .table {
     background-color: #ffffff; /* Color de fondo blanco */
     color: #000; /* Color de texto negro */
@@ -39,7 +14,8 @@
     background-color: #5F6F65; /* Color al pasar el mouse sobre las filas */
   }
 
-  .table td, .table th {
+  .table td,
+  .table th {
     padding: 15px; /* Espaciado interno */
   }
 
@@ -68,9 +44,9 @@
       <th scope="col"></th>
       <th scope="col">Nombre</th>
       <th scope="col">Precio</th>
-      <th scope="col"> <!-- Botón Nuevo Ítem -->
-    <button class="btn btn-primary btn-new-item" data-bs-toggle="modal" data-bs-target="#newItemModal">Nuevo
-        Ítem</button></th>
+      <th scope="col">
+        <a href="/addproduct" class="btn btn-primary">Nuevo Ítem</a>
+      </th>
     </tr>
   </thead>
   <tbody>
