@@ -22,6 +22,21 @@ CREATE TABlE IF NOT EXISTS Sales (
     ammount INTERGER
 );
 
+CREATE TABLE IF NOT EXISTS carts (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS cart_items (
+    id SERIAL PRIMARY KEY,
+    cart_id INT REFERENCES carts(id),
+    product_id INT REFERENCES products(id),
+    quantity INT DEFAULT 1,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 INSERT INTO Products (name, Price, stock, image_path, description) VALUES
 ('Kryptonita 97%', 9000, 10, '/resources/Kryptonita97.webp', '10 grs. Kryptonita de laboratorio ultra pura.'),
