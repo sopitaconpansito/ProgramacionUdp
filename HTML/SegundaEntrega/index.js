@@ -224,5 +224,70 @@ app.post(
   }
 );
 
+/* ---------- Ver el Carrito ---------- */
+app.get('/cart', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  
+  // Consulta productos del carrito del usuario actual
+  const query = `
+    SELECT p.id, p.name, p.price, c.quantity
+    FROM cart AS c
+    JOIN products AS p ON c.product_id = p.id
+    WHERE c.user_id = $1;
+  `;
+  const cartItems = await sql(query, [userId]);
+  
+  // Calcula el total
+  const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  res.render('carrito', { cartItems, totalAmount });
+});
+
+/* ---------- Agregar Producto al Carrito ---------- */
+app.post('/cart/add', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const productId = req.body.product_id;
+  const quantity = req.body.quantity || 1;
+
+  const query = `
+    INSERT INTO cart (user_id, product_id, quantity)
+    VALUES ($1, $2, $3)
+    ON CONFLICT (user_id, product_id)
+    DO UPDATE SET quantity = cart.quantity + $3;
+  `;
+  
+  await sql(query, [userId, productId, quantity]);
+  res.redirect('/cart');
+});
+
+/* ---------- Actualizar Cantidad en el Carrito ---------- */
+app.post('/cart/update/:productId', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const productId = req.params.productId;
+  const quantity = req.body.quantity;
+
+  const query = `
+    UPDATE cart SET quantity = $1
+    WHERE user_id = $2 AND product_id = $3;
+  `;
+  
+  await sql(query, [quantity, userId, productId]);
+  res.redirect('/cart');
+});
+
+/* ---------- Eliminar Producto del Carrito ---------- */
+app.post('/cart/delete/:productId', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const productId = req.params.productId;
+
+  const query = `
+    DELETE FROM cart WHERE user_id = $1 AND product_id = $2;
+  `;
+  
+  await sql(query, [userId, productId]);
+  res.redirect('/cart');
+});
+
+
 /*---------- Use Port ----------*/
 app.listen(3000, () => console.log('te lo meti'));
